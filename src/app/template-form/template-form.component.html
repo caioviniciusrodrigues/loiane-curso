@@ -1,0 +1,60 @@
+<form class="container" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+  <div class="form-row" [ngClass]="aplicaCssError(nome)">
+    <div class="form-group col-sm-6">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
+      [(ngModel)]="usuario.nome" required #nome="ngModel">
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="email">E-mail</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com"
+        [(ngModel)]="usuario.email" required #email="ngModel">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!email.valid && email.touched">
+      O e-mail é obrigatório
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-sm-3">
+      <label for="cep">CEP</label>
+      <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="numero">Numero</label>
+      <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel" >
+    </div>
+    <div class="form-group col-sm-6">
+      <label for="complemento">Complemento</label>
+      <input type="text" class="form-control" id="complemento" name="complemento" ngModel required #complemento="ngModel">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <label for="rua">Rua</label>
+      <input type="text" class="form-control" readonly id="rua" name="rua" ngModel required #rua="ngModel" >
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-sm-5">
+      <label for="bairro">Bairro</label>
+      <input type="text" class="form-control" readonly id="bairro" name="bairro" ngModel required #bairro="ngModel">
+    </div>
+    <div class="form-group col-sm-4">
+      <label for="cidade">Cidade</label>
+      <input type="text" class="form-control" readonly id="cidade" name="cidade" ngModel required #cidade="ngModel">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="estado">Estado</label>
+      <input type="text" class="form-control" readonly id="estado" name="estado" ngModel required #estado="ngModel">
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!f.valid" class="btn btn-primary mb-2">Enviar</button>
+
+  <app-form-debug [form]="f"></app-form-debug>
+
+ </form>
