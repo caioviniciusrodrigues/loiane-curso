@@ -3,14 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormComponent } from './data-form/data-form.component';
-import { CampoControlErrorComponent } from './campo-control-error/campo-control-error.component';
 
 
 const routes: Routes = [
   { path: 'templateForm', component: TemplateFormComponent },
   { path: 'dataForm', component: DataFormComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'templateForm' },
-  { path: 'teste', component: CampoControlErrorComponent}
+  { path: '', component: DataFormComponent }
 ];
 
 @NgModule({

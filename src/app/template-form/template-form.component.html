@@ -1,4 +1,4 @@
-<form class="container" #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
 
   <div class="form-row" [ngClass]="aplicaCssError(nome)">
     <div class="form-group col-sm-6">
@@ -12,16 +12,22 @@
       <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com"
         [(ngModel)]="usuario.email" required #email="ngModel">
     </div>
-    <div class="alert alert-danger" role="alert" *ngIf="!email.valid && email.touched">
-      O e-mail é obrigatório
-    </div>
   </div>
+  <app-campo-control-error [mostrarErro]="verificaValidTouched(email)" mensagemErro="E-mail é obrigatório">
+  </app-campo-control-error>
 
+  <app-campo-control-error [mostrarErro]="verificaValidTouched(nome)" mensagemErro="Nome é obrigatório">
+  </app-campo-control-error>
+
+<div ngModelGroup="endereco">
   <div class="form-row">
     <div class="form-group col-sm-3">
       <label for="cep">CEP</label>
-      <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
+      <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel"
+      (blur)="consultaCEP(cep.value, f)"> <!--Ou $event.target.value-->
     </div>
+    <app-campo-control-error [mostrarErro]="verificaValidTouched(cep)" mensagemErro="Cep é obrigatório">
+    </app-campo-control-error>
     <div class="form-group col-sm-3">
       <label for="numero">Numero</label>
       <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel" >
@@ -52,7 +58,7 @@
       <input type="text" class="form-control" readonly id="estado" name="estado" ngModel required #estado="ngModel">
     </div>
   </div>
-
+</div>
   <button type="submit" [disabled]="!f.valid" class="btn btn-primary mb-2">Enviar</button>
 
   <app-form-debug [form]="f"></app-form-debug>
