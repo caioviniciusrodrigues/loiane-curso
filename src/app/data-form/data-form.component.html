@@ -1,15 +1,68 @@
-<form [formGroup]="formulario">
-  <div class="form-row">
-    <div class="form-group col-md-6">
+<form [formGroup]="formulario"  (ngSubmit)="onSubmit()">
+  <div class="form-row" >
+    <div class="form-group col-md-6 has-error" [ngClass]="aplicaCssError('nome')" >
       <label for="nome">Nome</label>
       <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome">
+      <app-campo-control-error
+      [mostrarErro]="verificaValidTouched('nome')" mensagemErro="Nome é obrigatório">
+      </app-campo-control-error>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6" [ngClass]="aplicaCssError('email')">
       <label for="email">E-mail</label>
       <input type="email" class="form-control" id="email" formControlName="email" placeholder="teste@teste.com">
+      <app-campo-control-error
+       [mostrarErro]="verificaValidTouched('email')" mensagemErro="E-mail é obrigatório">
+      </app-campo-control-error>
+    </div>
+  </div>
+
+  <div formGroupName="endereco">
+    <div class="form-row">
+      <div class="form-group col-sm-3">
+        <label for="cep">CEP</label>
+        <input type="text" class="form-control" id="cep" formControlName="cep"
+        (blur)="consultaCEP()">
+        <app-campo-control-error
+         [mostrarErro]="verificaValidTouched('endereco.cep')" mensagemErro="Cep é obrigatório">
+        </app-campo-control-error>
+      </div>
+
+      <div class="form-group col-sm-3">
+        <label for="numero">Numero</label>
+        <input type="text" class="form-control" id="numero" formControlName="numero">
+        <app-campo-control-error
+          [mostrarErro]="verificaValidTouched('endereco.numero')" mensagemErro="Número é obrigatório">
+       </app-campo-control-error>
+      </div>
+      <div class="form-group col-sm-6">
+        <label for="complemento">Complemento</label>
+        <input type="text" class="form-control" id="complemento" formControlName="complemento">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <label for="rua">Rua</label>
+        <input type="text" class="form-control" readonly id="rua" name="rua" formControlName="rua">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-5">
+        <label for="bairro">Bairro</label>
+        <input type="text" class="form-control" readonly id="bairro" formControlName="bairro">
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="cidade">Cidade</label>
+        <input type="text" class="form-control" readonly id="cidade" formControlName="cidade">
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="estado">Estado</label>
+        <input type="text" class="form-control" readonly id="estado" formControlName="estado">
+      </div>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Enviar</button>
+  <button class="btn" (click)="cancelar()">Cancelar</button>
 </form>
 
 <app-form-debug [form]="formulario"></app-form-debug>
